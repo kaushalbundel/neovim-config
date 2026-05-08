@@ -10,8 +10,14 @@ vim.g.mapleader = " "
 -- adding 4 spaces as tabs
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4 -- set to 0 to default to tabstop value
+vim.opt.shiftwidth = 4 -- set to 0 to default to tab stop value
 -- making vim use system clipboard
+-- spell check
+-- dictionary files should be downloaded. nvim can do that either directly or using this link https://ftp.nluug.nl/pub/vim/runtime/spell/
+-- dictionaries should be stored in nvim-data/site/spell directory
+vim.opt.spell = true
+vim.opt.spelllang = { "en" }
+-- integrating system's clipboard manager with vim register
 vim.opt.clipboard = "unnamedplus"
 -- plugin Manager
 -- Lazyvim
