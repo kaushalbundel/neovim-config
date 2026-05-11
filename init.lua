@@ -114,5 +114,32 @@ require("lazy").setup({
             })
         end,
     },
+-- Treesitter config
+-- permits spell check inside comments only and not code
+{
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main", 
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+        -- IMPORTANT: require("nvim-treesitter.configs") is GONE. 
+        -- We now use the vim.g variables or direct native calls.
+
+        -- 1. Tell Treesitter which parsers to maintain
+        -- (This replaces the old setup table)
+        vim.g.treesitter_ensure_installed = { "lua", "vim", "vimdoc", "query", "python", "javascript", "markdown" }
+
+        -- 2. Start the engine automatically
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function(args)
+                -- This activates highlighting and smart spellchecking
+                local success, _ = pcall(vim.treesitter.start, args.buf)
+                
+                -- If it fails (e.g. parser not installed yet), 
+                -- it won't crash your editor.
+            end,
+        })
+    end,
+},
 })
 
