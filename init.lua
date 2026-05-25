@@ -18,6 +18,7 @@ vim.opt.shiftwidth = 4 -- set to 0 to default to tab stop value
 vim.opt.spell = true
 vim.opt.spelllang = { "en" }
 -- integrating system's clipboard manager with vim register
+-- install may be required for system specific clipboard tools like wl-clipboard for wayland specific distros
 vim.opt.clipboard = "unnamedplus"
 -- plugin Manager
 -- Lazyvim
@@ -140,6 +141,13 @@ require("lazy").setup({
             end,
         })
     end,
+},
+{
+  "folke/snacks.nvim",
+  keys = {
+    { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+  }
 },
 })
 
