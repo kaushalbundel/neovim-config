@@ -17,6 +17,7 @@ vim.opt.shiftwidth = 4 -- set to 0 to default to tab stop value
 -- dictionaries should be stored in nvim-data/site/spell directory
 vim.opt.spell = true
 vim.opt.spelllang = { "en" }
+vim.opt.spelloptions:append("camel")
 -- integrating system's clipboard manager with vim register
 -- install may be required for system specific clipboard tools like wl-clipboard for wayland specific distros
 vim.opt.clipboard = "unnamedplus"
@@ -128,7 +129,7 @@ require("lazy").setup({
 
         -- 1. Tell Treesitter which parsers to maintain
         -- (This replaces the old setup table)
-        vim.g.treesitter_ensure_installed = { "lua", "vim", "vimdoc", "query", "python", "javascript", "markdown" }
+        vim.g.treesitter_ensure_installed = { "lua", "vim", "vimdoc", "query", "python", "javascript", "markdown", "swift"}
 
         -- 2. Start the engine automatically
         vim.api.nvim_create_autocmd("FileType", {
@@ -148,6 +149,11 @@ require("lazy").setup({
     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
   }
+},
+{
+'m4xshen/autoclose.nvim',
+event = "InsertEnter",
+opts = {}
 },
 })
 
