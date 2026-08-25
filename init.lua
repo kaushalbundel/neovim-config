@@ -40,13 +40,27 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
 -- color theme (gruvbox)
+-- {
+--         "ellisonleao/gruvbox.nvim",
+--         priority = 1000,
+--         config = function()
+--             vim.cmd.colorscheme("gruvbox")
+--         end,
+--     },
+
 {
-        "ellisonleao/gruvbox.nvim",
-        priority = 1000,
-        config = function()
-            vim.cmd.colorscheme("gruvbox")
-        end,
-    },
+  'projekt0n/github-nvim-theme',
+  name = 'github-theme',
+  lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  priority = 1000, -- make sure to load this before all the other start plugins
+  config = function()
+    -- require('github-theme').setup({
+    --   -- ...
+    -- })
+
+    vim.cmd('colorscheme github_dark_default')
+  end,
+},
 
 -- File Finder
 -- fzf
@@ -62,12 +76,17 @@ require("lazy").setup({
             { "<Leader>/", "<Cmd>Rg<CR>", desc = "Search project" },
         },
     },
+-- comments do not work inside html files with inline js/css inside an html file. This is a solution for this.
+{
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+},
 -- commenting using gc
 {
         "https://github.com/numToStr/Comment.nvim",
         event = "VeryLazy", -- Special lazy.nvim event for things that can load later and are not important for the initial UI
         config = function()
-            require("Comment").setup()
+            require("Comment").setup({pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),})
         end,
     },
 -- indent settings 
@@ -154,6 +173,17 @@ require("lazy").setup({
 'm4xshen/autoclose.nvim',
 event = "InsertEnter",
 opts = {}
+},
+{
+    "kylechui/nvim-surround",
+    version = "^4.0.0", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    -- Optional: See `:h nvim-surround.configuration` and `:h nvim-surround.setup` for details
+    -- config = function()
+    --     require("nvim-surround").setup({
+    --         -- Put your configuration here
+    --     })
+    -- end
 },
 })
 
